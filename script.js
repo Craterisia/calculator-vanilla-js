@@ -30,8 +30,6 @@ clearCurrentBtn.addEventListener("click", () => {
   answerScreen.innerHTML = 0;
   sample.className = "invisible";
   answerScreen.className = "result active";
-  clearCurrentBtn.className = "none";
-  clearMemoryBtn.className = "clear";
   memoryFulling();
 });
 
@@ -58,6 +56,7 @@ buttons.forEach((btn) => {
       btn.id !== "erase"
     ) {
       // To display value on btn press
+
       realTimeScreenValue.push(btn.value);
       sample.innerHTML = realTimeScreenValue.join("");
       sample.className = "sample active";
@@ -65,9 +64,10 @@ buttons.forEach((btn) => {
 
       // To evaluate answer in real time
       if (btn.classList.contains("num-btn")) {
-        clearCurrentBtn.className = "clear";
-        clearMemoryBtn.className = "none";
-        answerScreen.innerHTML = "= " + eval(realTimeScreenValue.join(""));
+        let sampleValue = realTimeScreenValue.join("");
+        let resultValue = eval(sampleValue);
+        let answer = resultValue;
+        answerScreen.innerHTML = "= " + answer;
       }
     }
 
@@ -80,11 +80,13 @@ buttons.forEach((btn) => {
 
     // When clicked button is evaluate button
     if (btn.id.match("evaluate")) {
+      let sampleValue = realTimeScreenValue.join("");
+      let resultValue = eval(sampleValue);
       sample.className = "sample nonactive";
       answerScreen.className = "result active";
       memoryFulling();
       calculated = true;
-      return (answer = eval(realTimeScreenValue.join("")));
+      return (answer = resultValue);
     }
 
     // To prevent undefined error in screen
