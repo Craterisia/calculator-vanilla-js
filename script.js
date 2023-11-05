@@ -10,6 +10,7 @@ let memory = document.querySelector(".memory");
 
 // Display
 let realTimeScreenValue = [];
+let calculated = false;
 
 // Fulling memory display
 function memoryFulling() {
@@ -44,6 +45,12 @@ clearMemoryBtn.addEventListener("click", () => {
 // Getting value of any button clicked and displaying it to the screen
 buttons.forEach((btn) => {
   btn.addEventListener("click", () => {
+    // Deleting last sesion
+    if (calculated === true) {
+      realTimeScreenValue = [""];
+      answerScreen.innerHTML = answer;
+      calculated = false;
+    }
     // when clicked button is not erased button
     if (
       (btn.classList.contains("num-btn") ||
@@ -76,6 +83,8 @@ buttons.forEach((btn) => {
       sample.className = "sample nonactive";
       answerScreen.className = "result active";
       memoryFulling();
+      calculated = true;
+      return (answer = eval(realTimeScreenValue.join("")));
     }
 
     // To prevent undefined error in screen
