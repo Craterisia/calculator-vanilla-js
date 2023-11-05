@@ -45,6 +45,7 @@ h1 {
   padding: 30px 30px 5px 30px;
   text-align: right;
   height: 50%;
+  overflow: hidden;
 }
 
 .memory {
@@ -118,6 +119,8 @@ h1 {
 
 .sample-result {
   height: 30%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .active {
@@ -127,8 +130,16 @@ h1 {
 }
 
 .sample {
+  display: flex;
   opacity: 1 !important;
   margin-bottom: 5px;
+  max-width: 100%;
+  justify-content: flex-end;
+}
+
+.result {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .nonactive {
