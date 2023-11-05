@@ -42,46 +42,45 @@ clearMemoryBtn.addEventListener("click", () => {
 });
 
 // Getting value of any button clicked and displaying it to the screen
-function clickingButtons() {
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      // when clicked button is not erased button
-      if (
-        btn.classList.contains("num-btn") ||
-        btn.classList.contains("fun-btn")
-      ) {
-        // To display value on btn press
-        realTimeScreenValue.push(btn.value);
-        sample.innerHTML = realTimeScreenValue.join("");
-        sample.className = "sample active";
-        answerScreen.className = "result nonactive";
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // when clicked button is not erased button
+    if (
+      (btn.classList.contains("num-btn") ||
+        btn.classList.contains("fun-btn")) &&
+      btn.id !== "erase"
+    ) {
+      // To display value on btn press
+      realTimeScreenValue.push(btn.value);
+      sample.innerHTML = realTimeScreenValue.join("");
+      sample.className = "sample active";
+      answerScreen.className = "result nonactive";
 
-        // To evaluate answer in real time
-        if (btn.classList.contains("num-btn")) {
-          clearCurrentBtn.className = "clear";
-          clearMemoryBtn.className = "none";
-          answerScreen.innerHTML = "= " + eval(realTimeScreenValue.join(""));
-        }
+      // To evaluate answer in real time
+      if (btn.classList.contains("num-btn")) {
+        clearCurrentBtn.className = "clear";
+        clearMemoryBtn.className = "none";
+        answerScreen.innerHTML = "= " + eval(realTimeScreenValue.join(""));
       }
+    }
 
-      // When erase button is clicked
-      if (btn.id.match("erase")) {
-        realTimeScreenValue.pop();
-        sample.innerHTML = realTimeScreenValue.join("");
-        answerScreen.innerHTML = eval(realTimeScreenValue.join(""));
-      }
+    // When erase button is clicked
+    if (btn.id.match("erase")) {
+      realTimeScreenValue.pop();
+      sample.innerHTML = realTimeScreenValue.join("");
+      answerScreen.innerHTML = eval(realTimeScreenValue.join(""));
+    }
 
-      // When clicked button is evaluate button
-      if (btn.id.match("evaluate")) {
-        sample.className = "sample nonactive";
-        answerScreen.className = "result active";
-        memoryFulling();
-      }
+    // When clicked button is evaluate button
+    if (btn.id.match("evaluate")) {
+      sample.className = "sample nonactive";
+      answerScreen.className = "result active";
+      memoryFulling();
+    }
 
-      // To prevent undefined error in screen
-      if (typeof eval(realTimeScreenValue.join("")) == "undefined") {
-        answerScreen.innerHTML = 0;
-      }
-    });
+    // To prevent undefined error in screen
+    if (typeof eval(realTimeScreenValue.join("")) == "undefined") {
+      answerScreen.innerHTML = 0;
+    }
   });
-}
+});
